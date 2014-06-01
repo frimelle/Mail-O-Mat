@@ -34,7 +34,7 @@ else: ?>
 		<input name=a type=hidden value=sendmessage>
 		<p>To:<br><input name="recname"></p>
 		<br>
-		<p>Message:<br><textarea name="message" rows="20" cols="50">Enter message here...</textarea></p>
+		<p>Message:<br><textarea name="message" rows="20" cols="50" onfocus="if(this.value=='Enter message here...') this.value='';">Enter message here...</textarea></p>
 		<input name="send_submit" type=submit value="SUBMIT">
 	</form>
 
