@@ -15,19 +15,32 @@ if(isset($_POST['send_submit']) && $_POST['send_submit']): {
 		echo '<br><a href="index.php?a=overview">Back</a>';
 		return;
 	}
+	$userid = $_SESSION['userid'];
+
 	$recname = $_POST['recname'];
 	$message = $_POST['message'];
-	$userid = $_SESSION['userid'];
+
+	$recname = sanitize_input($recname);
+	$message = sanitize_input($message);
 
 	$qstring2 = "SELECT id FROM users WHERE name='$recname'";
 	$result = mysqli_query($db, $qstring2);
+
 	$row = mysqli_fetch_object($result);
-	$recvid = $row->id;
-	$qstring = "INSERT INTO message (recid, sendid, text) VALUES ('$recvid', '$userid', '$message')";
- 		mysqli_query($db, $qstring);
-		
-		echo 'Your message has been sent.<br>';
+	if($row == null) 
+	{
+		echo "Error, username not valid.";
 		echo 'Click <a href="index.php?a=overview">here</a> to go to Overview.';
+		exit();
+	}
+
+	$recvid = $row->id;
+
+	$qstring = "INSERT INTO message (recid, sendid, text) VALUES ('$recvid', '$userid', '$message')";
+ 	mysqli_query($db, $qstring);
+		
+	echo 'Your message has been sent.<br>';
+	echo 'Click <a href="index.php?a=overview">here</a> to go to Overview.';
 } 
 else: ?>
 	<form action="index.php" method="post">
