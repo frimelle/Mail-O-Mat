@@ -4,19 +4,19 @@ if(!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] == 0) {
 	echo "No Access";
 	exit();
 }
-if(isset($_GET['send_submit']) && $_GET['send_submit']): {
-	if($_GET['recname'] == "") {
+if(isset($_POST['send_submit']) && $_POST['send_submit']): {
+	if($_POST['recname'] == "") {
 		echo 'Please Enter Receiver Name';
 		echo '<br><a href="index.php?a=overview">Back</a>';
 		return;
 	}
-	if($_GET['message'] == "") {
+	if($_POST['message'] == "") {
 		echo 'Please Enter Your Message';
 		echo '<br><a href="index.php?a=overview">Back</a>';
 		return;
 	}
-	$recname = $_GET['recname'];
-	$message = $_GET['message'];
+	$recname = $_POST['recname'];
+	$message = $_POST['message'];
 	$userid = $_SESSION['userid'];
 
 	$qstring2 = "SELECT id FROM users WHERE name='$recname'";
@@ -30,13 +30,12 @@ if(isset($_GET['send_submit']) && $_GET['send_submit']): {
 		echo 'Click <a href="index.php?a=overview">here</a> to go to Overview.';
 } 
 else: ?>
-	<form action="index.php" method="get" id="usrform"> <!-- later: post instead of get because now you can see the password and stuff-->
+	<form action="index.php" method="post">
 		<input name=a type=hidden value=sendmessage>
 		<p>To:<br><input name="recname"></p>
 		<br>
-		<p>Message:<br><input name="message"></p>
+		<p>Message:<br><textarea name="message" rows="20" cols="50">Enter message here...</textarea></p>
 		<input name="send_submit" type=submit value="SUBMIT">
 	</form>
-	<!-- <textarea name="message" form="usrform">Enter text here...</textarea> -->
 
 <?php endif; ?>

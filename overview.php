@@ -11,7 +11,7 @@
 			include("showmessage.php");
 		?>
 		</td>
-		<td>
+		<td valign="top">
 			<?php 
 				include("sendmessage.php");
 			?>

@@ -3,7 +3,6 @@
 	if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1): {
 		echo "Hallo " . $_SESSION["username"];
 		echo '<br>';
-		echo '<a href="index.php?a=logout">log out</a>';
 		include("overview.php");
 	} else: ?>
 		<br>

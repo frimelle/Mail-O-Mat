@@ -1,25 +1,25 @@
 <!-- the page where the user can login --> 
 
 <?php
-	if(isset($_GET['submit'])): {
-		if($_GET['name'] == "") {
+	if(isset($_POST['submit'])): {
+		if($_POST['name'] == "") {
 			echo 'Please Enter Name';
 			echo '<br><a href="index.php?a=login">Back</a>';
 			return;
 		}
-		if($_GET['password'] == "") {
+		if($_POST['password'] == "") {
 			echo 'Please Enter Password';
 			echo '<br><a href="index.php?a=login">Back</a>';
 			return;
 		}
 
-		$name = $_GET['name'];
-		$password = $_GET['password'];
+		$name = $_POST['name'];
+		$password = $_POST['password'];
 
 		$qstring = "SELECT name, password, id FROM users WHERE name='$name'"; 
 		$qresult = mysqli_query($db, $qstring);
 		$row = mysqli_fetch_object($qresult);
-		if($row->password != $password){
+		if($row->password != hash("sha512", $password)){
 			echo "Wrong Password.";
 			echo 'Click <a href="index.php?a=login">here</a> to log in again.';
 			return;
@@ -30,8 +30,7 @@
 		include("overview.php");
 	}
 	else: ?> 
-		<form action="index.php" method="get"> <!-- later: post instead of get because now you can see the password and stuff-->
-		<input name=a type=hidden value=login>
+		<form action="index.php?a=login" method="post">
 		<p>Name:<br><input name="name"></p>
 		<p>Password:<br><input name="password" type=password></p>
 		<input name="submit" type=submit value="SUBMIT">
