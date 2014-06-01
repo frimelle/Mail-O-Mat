@@ -19,7 +19,11 @@
 		$name = $_POST['name'];
 		$email = $_POST['email'];
 		$password = hash("sha512", $_POST['password']);
-	
+
+		//sanitize input
+		$name = sanitize_input($name);
+		$email = sanitize_input($email);
+		
 		$qstring = "INSERT INTO users (name, email, password ) VALUES ('$name', '$email', '$password')";
  		mysqli_query($db, $qstring);
 		

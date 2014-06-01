@@ -15,9 +15,13 @@ if(isset($_POST['send_submit']) && $_POST['send_submit']): {
 		echo '<br><a href="index.php?a=overview">Back</a>';
 		return;
 	}
+	$userid = $_SESSION['userid'];
+
 	$recname = $_POST['recname'];
 	$message = $_POST['message'];
-	$userid = $_SESSION['userid'];
+
+	$recname = sanitize_input($recname);
+	$message = sanitize_input($message);
 
 	$qstring2 = "SELECT id FROM users WHERE name='$recname'";
 	$result = mysqli_query($db, $qstring2);
