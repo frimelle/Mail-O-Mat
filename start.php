@@ -5,7 +5,6 @@
 		echo '<br>';
 		include("overview.php");
 	} else: ?>
-		<br>
 		<head> "THIS IS THE EPIC MAIL-O-MAT!" </head>
 		<br>
 		<br>
